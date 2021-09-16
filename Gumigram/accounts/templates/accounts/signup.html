@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  <div class="rounded bg-white p-4">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form%}
+      <button class="btn btn-dark py-0">가입</button>
+      <a href="{% url 'articles:index' %}" class="btn btn-outline-dark py-0">뒤로</a>
+    </form>
+  </div>
+{% endblock content %}

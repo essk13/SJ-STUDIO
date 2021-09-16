@@ -1,19 +1,18 @@
-# 개인 Web 학습
+# 개인 PJT 준비
 
-### 디자인 학습을 하며 만들었던 로고들을 전시하는 웹사이트를 만들어 보며 html, css에 적응하고자 한다.
+```
+학습 내용을 기반으로 개인만의 일기를 작성할 수 있는 사이트를 구현하는 것을 목표로 준비 중
+```
 
-- **HOME(전체화면/break-point: xxl)**
+### 현재까지 구현 부분
 
-  ![home](README.assets/home.PNG)
+```
+기초 CRUD (게시물 작성, 조회, 수정, 삭제), 회원가입, 로그인/아웃, 유저정보수정/탈퇴
+--- 추가
+게시물 작성, 수정, 삭제시 메시지 표시
+페이지네이션
+썸네일 이미지
+```
 
-  ![home_2](README.assets/home_2.PNG)
+**추후 README, PJT 업데이트**
 
-  - **(축소화면/break-point: lg)**
-
-  ![home_3](README.assets/home_3.PNG)
-
-- **ABOUT SJ (축소화면/break-point: lg)**
-
-  ![about_sj](README.assets/about_sj.PNG)
-
-  
