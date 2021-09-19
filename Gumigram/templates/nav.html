@@ -1,0 +1,76 @@
+{% load static %}
+
+<nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
+  <div class="container-fluid text-white px-0">
+    <a class="navbar-brand" href="{% url 'articles:index' %}">
+      <h1 class="" style="font-size: 3rem;font-family: pique-web, snas-serif; background: linear-gradient(to right, #fbcac9, #8ca6ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Diacret.
+      </h1>
+    </a>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+      <div class="mx-2 d-flex">
+        {% if request.user.is_authenticated %}
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+              <ul class="navbar-nav" style="font-family: sandoll-ongothic, sans-serif;">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-white py-0" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ request.user.username }} <i class="fas fa-user fa-lg ms-1"></i>
+                  </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="font-family: sandoll-ongothic, sans-serif;">
+                      <li><a class="dropdown-item" href="{% url 'accounts:update' %}">정보수정</a></li>
+                      <li><form action="{% url 'accounts:logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="dropdown-item">로그아웃</button>
+                      </form></li>
+                      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">회원탈퇴</a></li>
+                    </ul>
+                </li>
+              </ul>
+          </div>
+          <a class="nav-link text-decoration-none text-white p-2" aria-current="page" href="{% url 'articles:index' %}"><i class="fab fa-viadeo-square fa-3x" style="background: linear-gradient(to right, #fbcac9, #8ca6ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i></a>
+          <a class="nav-link text-decoration-none text-white p-2" href="{% url 'articles:create' %}"><i class="fas fa-pen-square fa-3x" style="background: linear-gradient(to right, #fbcac9, #8ca6ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i></a>
+        {% else %}
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="far fa-user fa-lg"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="font-family: sandoll-ongothic, sans-serif;">
+                  <li><a class="dropdown-item" href="{% url 'accounts:login' %}">로그인</a></li>
+                  <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">회원가입</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+      <form class="d-flex">
+        <input class="form-control me-2 bg-dark text-white py-1 d-none d-lg-inline" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-secondary  py-1 d-none d-lg-inline" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered text-white" style="font-family: sandoll-ongothic, sans-serif;">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">경고</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        정말 회원탈퇴를 진행하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <form action="{% url 'accounts:delete' %}" method="POST">
+          {% csrf_token %}
+          <button type="button" class="btn btn-secondary pb-0 pt-1" data-bs-dismiss="modal" style="width: 2.5rem;"><i class="fas fa-times"></i></button>
+          <button class="btn btn-outline-danger pb-0 pt-1" style="width: 2.5rem; padding-left: 0.6rem;"><i class="fas fa-user-slash"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

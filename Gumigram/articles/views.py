@@ -11,7 +11,7 @@ from .forms import ArticleForm
 @require_safe
 def index(request):
     articles = Article.objects.all()
-    paginator = Paginator(articles, 5)
+    paginator = Paginator(articles, 9)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -29,7 +29,7 @@ def create(request):
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save()
-            messages.add_message(request, messages.INFO, 'CONTENT CREATED')
+            messages.add_message(request, messages.INFO, '게시물이 등록되었습니다.')
             return redirect('articles:detail', article.pk)
     else:
         form = ArticleForm()
@@ -57,7 +57,7 @@ def update(request, pk):
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             article = form.save()
-            messages.success(request, 'CONTENT UPDATED')
+            messages.success(request, '게시물이 수정되었습니다.')
             return redirect('articles:detail', pk)
     else:
         form = ArticleForm(instance=article)
@@ -68,10 +68,10 @@ def update(request, pk):
     return render(request, 'articles/form.html', context)
 
 
-@login_required
 @require_POST
 def delete(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    article.delete()
-    messages.error(request, 'CONTENT DELETE')
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        article.delete()
+        messages.error(request, '게시물이 삭제되었습니다.')
     return redirect('articles:index')

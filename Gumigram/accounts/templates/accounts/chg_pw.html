@@ -2,12 +2,14 @@
 {% load bootstrap5 %}
 
 {% block content %}
-  <div class="rounded bg-white p-4">
+  <div class="rounded bg-white p-4" style="font-family: sandoll-ongothic, sans-serif;">
     <form action="" method="POST">
       {% csrf_token %}
       {% bootstrap_form form %}
-      <button class="btn btn-dark py-0">수정</button>
-      <a href="{% url 'accounts:update' %}" class="btn btn-dark py-0">뒤로</a>
+      <div class="text-end">
+        <button class="btn btn-dark pb-0 pt-1" style="width: 2.5rem;"><i class="fas fa-user-edit"></i></button>
+        <a href="{% url 'accounts:update' %}" class="btn btn-outline-danger pb-0 pt-1" style="width: 2.5rem;"><i class="fas fa-times fa-lg"></i></a>
+      </div>
     </form>
   </div>
 {% endblock content %}

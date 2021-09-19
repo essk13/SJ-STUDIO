@@ -2,12 +2,16 @@
 {% load bootstrap5 %}
 
 {% block content %}
-  <div class="rounded bg-secondary p-4">
-    <form action="" method="POST">
+  <div class="rounded bg-secondary p-3 fw-bold" style="font-family: sandoll-ongothic, sans-serif;">
+    <form action="" method="POST" >
       {% csrf_token %}
       {% bootstrap_form form %}
-      <button class="btn btn-dark py-0">로그인</button>
-      <a href="{% url 'articles:index' %}" class="btn btn-outline-dark py-0">뒤로</a>
+      <div class="text-end">
+        <button class="btn btn-dark pb-0 pt-1" style="width: 2.5rem;"><i class="fas fa-sign-in-alt"></i></button>
+        <a href="{% url 'articles:index' %}" class="btn btn-outline-danger pb-0 pt-1" style="width: 2.5rem;"><i class="fas fa-times fa-lg"></i></a>
+        {% comment %} <button class="btn btn-dark pb-0 pt-1">로그인</button>
+        <a href="{% url 'articles:index' %}" class="btn btn-outline-dark pb-0 pt-1">뒤 로</a> {% endcomment %}
+      </div>
     </form>
   </div>
 {% endblock content %}

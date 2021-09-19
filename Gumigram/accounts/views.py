@@ -7,6 +7,7 @@ from django.contrib.auth import ( login as auth_login,
                                   update_session_auth_hash,
                                 )
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -19,6 +20,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
+            messages.add_message(request, messages.INFO, '회원가입이 완료되었습니다. {}님 환영합니다.'.format(user.username))
             return redirect('articles:index')
     else:
         form = CustomUserCreationForm()
@@ -37,7 +39,7 @@ def login(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect('articles:index')
+            return redirect(request.GET.get('next') or 'articles:index')
     else:
         form = AuthenticationForm()
     context = {
@@ -60,6 +62,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.INFO, '회원정보가 정상적으로 수정되었습니다.')
             return redirect('articles:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
@@ -74,6 +77,7 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
+        messages.add_message(request, messages.INFO, '탈퇴가 완료되었습니다.')
     return redirect('articles:index')
 
 
@@ -85,6 +89,7 @@ def chg_pw(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
+            messages.add_message(request, messages.INFO, '비밀번호가 정상적으로 변경되었습니다.')
             return redirect('articles:index')
     else:
         form = PasswordChangeForm(request.user)
